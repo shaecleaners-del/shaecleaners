@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Live Chat | Shae Cleaners</title>
+<link rel="stylesheet" href="admin-chat.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+/*======================================
+ADMIN CHAT.CSS
+Shae Cleaners Premium
+======================================*/
+
+:root{
+
+--primary:#0D6EFD;
+--secondary:#38BDF8;
+--success:#22C55E;
+--danger:#EF4444;
+
+--bg:#F4F8FC;
+--white:#FFFFFF;
+--text:#1E293B;
+--grey:#64748B;
+
+--shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+
+}
+
+body{
+
+background:var(--bg);
+height:100vh;
+overflow:hidden;
+
+}
+
+/*=========================
+LAYOUT
+=========================*/
+
+.chat-layout{
+
+display:grid;
+grid-template-columns:340px 1fr;
+height:100vh;
+
+}
+
+/*=========================
+SIDEBAR
+=========================*/
+
+.sidebar{
+
+background:#fff;
+border-right:1px solid #E5E7EB;
+display:flex;
+flex-direction:column;
+
+}
+
+.sidebar-header{
+
+padding:25px;
+text-align:center;
+border-bottom:1px solid #E5E7EB;
+
+}
+
+.sidebar-header img{
+
+width:75px;
+height:75px;
+border-radius:50%;
+margin-bottom:12px;
+
+}
+
+.sidebar-header h2{
+
+font-size:22px;
+color:var(--primary);
+
+}
+
+.sidebar-header p{
+
+font-size:14px;
+color:var(--grey);
+
+}
+
+/*=========================
+SEARCH
+=========================*/
+
+.search-box{
+
+padding:15px;
+position:relative;
+
+}
+
+.search-box input{
+
+width:100%;
+padding:14px 45px 14px 15px;
+border-radius:15px;
+border:1px solid #E5E7EB;
+outline:none;
+
+}
+
+.search-box i{
+
+position:absolute;
+right:30px;
+top:50%;
+transform:translateY(-50%);
+color:var(--grey);
+
+}
+
+/*=========================
+CUSTOMER LIST
+=========================*/
+
+.customer-list{
+
+flex:1;
+overflow-y:auto;
+
+}
+
+.customer-item{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+padding:15px;
+
+cursor:pointer;
+
+border-bottom:1px solid #F1F5F9;
+
+transition:.3s;
+
+}
+
+.customer-item:hover{
+
+background:#EEF6FF;
+
+}
+
+.customer-item img{
+
+width:50px;
+height:50px;
+border-radius:50%;
+
+}
+
+.customer-info{
+
+flex:1;
+
+}
+
+.customer-info h4{
+
+font-size:16px;
+
+}
+
+.customer-info p{
+
+font-size:13px;
+color:var(--grey);
+
+}
+/*======================================
+CHAT AREA
+======================================*/
+
+.chat-area{
+
+display:flex;
+flex-direction:column;
+height:100vh;
+background:#F8FAFC;
+
+}
+
+.chat-topbar{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:18px 25px;
+
+background:#fff;
+
+border-bottom:1px solid #E5E7EB;
+
+}
+
+.chat-messages{
+
+flex:1;
+
+overflow-y:auto;
+
+padding:20px;
+
+display:flex;
+flex-direction:column;
+
+gap:15px;
+
+}
+
+.message{
+
+display:flex;
+
+max-width:75%;
+
+animation:fadeIn .25s ease;
+
+}
+
+.message.user{
+
+align-self:flex-start;
+
+}
+
+.message.admin{
+
+align-self:flex-end;
+
+}
+
+.bubble{
+
+padding:14px 18px;
+
+border-radius:18px;
+
+font-size:14px;
+
+line-height:1.6;
+
+word-break:break-word;
+
+box-shadow:var(--shadow);
+
+}
+
+.message.user .bubble{
+
+background:#fff;
+
+color:var(--text);
+
+border-top-left-radius:5px;
+
+}
+
+.message.admin .bubble{
+
+background:linear-gradient(135deg,#0D6EFD,#38BDF8);
+
+color:#fff;
+
+border-top-right-radius:5px;
+
+}
+
+.time{
+
+margin-top:5px;
+
+font-size:11px;
+
+opacity:.7;
+
+}
+
+/*======================================
+INPUT
+======================================*/
+
+.chat-input{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+padding:15px;
+
+background:#fff;
+
+border-top:1px solid #E5E7EB;
+
+}
+
+.chat-input input[type="text"]{
+
+flex:1;
+
+padding:14px 18px;
+
+border:1px solid #E5E7EB;
+
+border-radius:25px;
+
+outline:none;
+
+font-size:15px;
+
+}
+
+.icon-btn,
+.send-btn{
+
+width:46px;
+
+height:46px;
+
+border:none;
+
+border-radius:50%;
+
+cursor:pointer;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:18px;
+
+transition:.3s;
+
+}
+
+.icon-btn{
+
+background:#EEF4FF;
+
+color:var(--primary);
+
+}
+
+.send-btn{
+
+background:linear-gradient(135deg,#0D6EFD,#38BDF8);
+
+color:#fff;
+
+}
+
+.icon-btn:hover,
+.send-btn:hover{
+
+transform:scale(1.08);
+
+}
+
+/*======================================
+EMOJI PANEL
+======================================*/
+
+.emoji-panel{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:10px;
+
+padding:15px;
+
+background:#fff;
+
+border-top:1px solid #E5E7EB;
+
+}
+
+.emoji{
+
+width:42px;
+
+height:42px;
+
+border:none;
+
+border-radius:12px;
+
+background:#F1F5F9;
+
+cursor:pointer;
+
+font-size:22px;
+
+transition:.3s;
+
+}
+
+.emoji:hover{
+
+background:#E2E8F0;
+
+}
+
+/*======================================
+WELCOME
+======================================*/
+
+.welcome-chat{
+
+margin:auto;
+
+text-align:center;
+
+color:#64748B;
+
+}
+
+.welcome-chat i{
+
+font-size:70px;
+
+margin-bottom:15px;
+
+color:#0D6EFD;
+
+}
+
+.welcome-chat h3{
+
+margin-bottom:10px;
+
+}
+
+/*======================================
+ANIMATION
+======================================*/
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(12px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/*======================================
+RESPONSIVE
+======================================*/
+
+@media(max-width:900px){
+
+.chat-layout{
+
+grid-template-columns:1fr;
+
+}
+
+.sidebar{
+
+display:none;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.chat-topbar{
+
+padding:15px;
+
+}
+
+.chat-input{
+
+padding:10px;
+
+}
+
+.chat-input input{
+
+font-size:14px;
+
+}
+
+.message{
+
+max-width:90%;
+
+}
+
+}
+
+/*======================================
+DARK MODE
+======================================*/
+
+body.dark{
+
+background:#0F172A;
+
+}
+
+body.dark .sidebar,
+body.dark .chat-topbar,
+body.dark .chat-input,
+body.dark .emoji-panel{
+
+background:#1E293B;
+
+}
+
+body.dark .chat-area{
+
+background:#0F172A;
+
+}
+
+body.dark .bubble{
+
+color:#fff;
+
+}
+
+body.dark .message.user .bubble{
+
+background:#334155;
+
+}
+
+body.dark input{
+
+background:#334155;
+
+color:#fff;
+
+border-color:#475569;
+
+}
+
+/*======================================
+SCROLLBAR
+======================================*/
+
+.chat-messages::-webkit-scrollbar,
+.customer-list::-webkit-scrollbar{
+
+width:6px;
+
+}
+
+.chat-messages::-webkit-scrollbar-thumb,
+.customer-list::-webkit-scrollbar-thumb{
+
+background:#0D6EFD;
+
+border-radius:20px;
+
+}</style>
+</head>
+
+<body>
+
+<div class="chat-layout">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+<div class="sidebar-header">
+
+<img src="/assets/logo.png" alt="Shae Cleaners">
+
+<h2>Shae Cleaners</h2>
+
+<p>Admin Live Chat</p>
+
+</div>
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchUser"
+placeholder="Cari pelanggan...">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+</div>
+
+<div id="customerList" class="customer-list">
+
+<!-- Daftar pelanggan akan dimuat dari Firebase -->
+
+</div>
+
+</aside>
+
+<!-- ================= AREA CHAT ================= -->
+
+<main class="chat-area">
+
+<div class="chat-topbar">
+
+<div class="customer-info">
+
+<h3 id="customerName">
+
+Pilih Pelanggan
+
+</h3>
+
+<span id="customerStatus">
+
+Belum ada percakapan dipilih
+
+</span>
+
+</div>
+
+</div>
+
+<div id="adminMessages" class="chat-messages">
+
+<div class="welcome-chat">
+
+<i class="fa-solid fa-comments"></i>
+
+<h3>Live Chat Admin</h3>
+
+<p>
+
+Pilih pelanggan dari daftar di sebelah kiri untuk mulai membalas pesan.
+
+</p>
+
+</div>
+
+</div>
+<!-- ================= INPUT CHAT ================= -->
+
+<footer class="chat-input">
+
+<label for="adminImage" class="icon-btn">
+
+<i class="fa-solid fa-image"></i>
+
+</label>
+
+<input
+type="file"
+id="adminImage"
+accept="image/*"
+hidden>
+
+<label for="adminFile" class="icon-btn">
+
+<i class="fa-solid fa-paperclip"></i>
+
+</label>
+
+<input
+type="file"
+id="adminFile"
+accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
+hidden>
+
+<button id="emojiBtn" class="icon-btn">
+
+<i class="fa-regular fa-face-smile"></i>
+
+</button>
+
+<input
+type="text"
+id="adminMessage"
+placeholder="Ketik balasan untuk pelanggan...">
+
+<button id="sendAdminMessage" class="send-btn">
+
+<i class="fa-solid fa-paper-plane"></i>
+
+</button>
+
+</footer>
+
+<!-- ================= EMOJI PANEL ================= -->
+
+<div id="emojiPanel" class="emoji-panel" style="display:none;">
+
+<button class="emoji">ðŸ˜€</button>
+<button class="emoji">ðŸ˜</button>
+<button class="emoji">ðŸ˜‚</button>
+<button class="emoji">ðŸ˜Š</button>
+<button class="emoji">ðŸ˜</button>
+<button class="emoji">ðŸ˜Ž</button>
+<button class="emoji">ðŸ‘</button>
+<button class="emoji">ðŸ™</button>
+<button class="emoji">â¤ï¸</button>
+<button class="emoji">ðŸŽ‰</button>
+
+</div>
+
+</main>
+
+</div>
+
+<!-- ================= FIREBASE ================= -->
+
+<script type="module" src="firebase.js"></script>
+<script type="module" src="chat-admin.js"></script>
+<script>
+/*=========================================
+CHAT-ADMIN.JS
+Shae Cleaners
+=========================================*/
+
+import { auth, db } from "./firebase.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+import {
+    collection,
+    query,
+    orderBy,
+    where,
+    onSnapshot,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+/*=========================================
+ELEMENT
+=========================================*/
+
+const customerList = document.getElementById("customerList");
+const adminMessages = document.getElementById("adminMessages");
+const adminMessage = document.getElementById("adminMessage");
+const sendAdminMessage = document.getElementById("sendAdminMessage");
+const customerName = document.getElementById("customerName");
+const customerStatus = document.getElementById("customerStatus");
+
+let adminUser = null;
+let selectedUid = null;
+
+/*=========================================
+LOGIN ADMIN
+=========================================*/
+
+onAuthStateChanged(auth,(user)=>{
+
+    if(!user){
+
+        window.location.href="login.html";
+        return;
+
+    }
+
+    adminUser = user;
+
+    loadCustomerList();
+
+});
+
+/*=========================================
+DAFTAR PELANGGAN
+=========================================*/
+
+function loadCustomerList(){
+
+    const q = query(
+        collection(db,"chat"),
+        orderBy("createdAt","desc")
+    );
+
+    const users = new Map();
+
+    onSnapshot(q,(snapshot)=>{
+
+        customerList.innerHTML = "";
+
+        snapshot.forEach((doc)=>{
+
+            const data = doc.data();
+
+            if(data.sender !== "user") return;
+
+            if(users.has(data.uid)) return;
+
+            users.set(data.uid,true);
+
+            customerList.innerHTML += `
+
+            <div class="customer-item"
+                 onclick="openChat('${data.uid}')">
+
+                <img src="assets/user.png">
+
+                <div class="customer-info">
+
+                    <h4>${data.name || "Pelanggan"}</h4>
+
+                    <p>${data.message}</p>
+
+                </div>
+
+            </div>
+
+            `;
+
+        });
+
+    });
+
+}
+/*=========================================
+BUKA CHAT PELANGGAN
+=========================================*/
+
+window.openChat = function(uid){
+
+    selectedUid = uid;
+
+    customerName.textContent = "Pelanggan";
+    customerStatus.textContent = "Sedang Online";
+
+    const q = query(
+        collection(db,"chat"),
+        where("uid","==",uid),
+        orderBy("createdAt","asc")
+    );
+
+    onSnapshot(q,(snapshot)=>{
+
+        adminMessages.innerHTML="";
+
+        snapshot.forEach((item)=>{
+
+            const data=item.data();
+
+            adminMessages.innerHTML += `
+
+            <div class="message ${data.sender}">
+
+                <div class="bubble">
+
+                    ${data.message}
+
+                </div>
+
+                <span class="time">
+
+                    ${formatTime(data.createdAt)}
+
+                </span>
+
+            </div>
+
+            `;
+
+        });
+
+        adminMessages.scrollTop =
+        adminMessages.scrollHeight;
+
+    });
+
+};
+
+
+/*=========================================
+KIRIM BALASAN ADMIN
+=========================================*/
+
+sendAdminMessage.addEventListener("click",sendReply);
+
+adminMessage.addEventListener("keypress",(e)=>{
+
+    if(e.key==="Enter"){
+
+        sendReply();
+
+    }
+
+});
+
+async function sendReply(){
+
+    const text = adminMessage.value.trim();
+
+    if(text==="") return;
+
+    if(!selectedUid){
+
+        alert("Pilih pelanggan terlebih dahulu.");
+
+        return;
+
+    }
+
+    try{
+
+        await addDoc(
+
+            collection(db,"chat"),
+
+            {
+
+                uid:selectedUid,
+                sender:"admin",
+                message:text,
+                read:false,
+                createdAt:serverTimestamp()
+
+            }
+
+        );
+
+        adminMessage.value="";
+
+    }catch(err){
+
+        alert(err.message);
+
+    }
+
+}
+
+
+/*=========================================
+FORMAT JAM
+=========================================*/
+
+function formatTime(timestamp){
+
+    if(!timestamp) return "";
+
+    const date = timestamp.toDate();
+
+    return date.toLocaleTimeString("id-ID",{
+
+        hour:"2-digit",
+        minute:"2-digit"
+
+    });
+
+}
+
+
+/*=========================================
+PENCARIAN PELANGGAN
+=========================================*/
+
+const searchUser =
+document.getElementById("searchUser");
+
+searchUser.addEventListener("input",()=>{
+
+    const keyword =
+    searchUser.value.toLowerCase();
+
+    document
+    .querySelectorAll(".customer-item")
+    .forEach((item)=>{
+
+        const text =
+        item.innerText.toLowerCase();
+
+        item.style.display =
+        text.includes(keyword)
+        ? "flex"
+        : "none";
+
+    });
+
+});
+
+
+/*=========================================
+EMOJI
+=========================================*/
+
+document
+.querySelectorAll(".emoji")
+.forEach((emoji)=>{
+
+    emoji.addEventListener("click",()=>{
+
+        adminMessage.value += emoji.textContent;
+
+        adminMessage.focus();
+
+    });
+
+});
+
+
+/*=========================================
+UPLOAD FILE
+=========================================*/
+
+document
+.getElementById("adminImage")
+.addEventListener("change",()=>{
+
+    alert(
+    "Upload gambar akan aktif setelah Firebase Storage dikonfigurasi."
+    );
+
+});
+
+document
+.getElementById("adminFile")
+.addEventListener("change",()=>{
+
+    alert(
+    "Upload dokumen akan aktif setelah Firebase Storage dikonfigurasi."
+    );
+
+});
+
+
+/*=========================================
+STATUS ADMIN
+=========================================*/
+
+console.log("Admin Online");
+
+
+/*=========================================
+READY
+=========================================*/
+
+console.log(
+"Admin Live Chat Ready - Shae Cleaners"
+);</script>
+
+</body>
+</html>
