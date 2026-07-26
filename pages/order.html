@@ -1525,7 +1525,7 @@ Cleaning Service Profesional
 
 <!-- ================= SCRIPT ================= -->
 
-<script>
+<script type="module">
 /*=========================================
  Shae Cleaners Order System
 =========================================*/
@@ -1854,21 +1854,30 @@ id,
 
 }
 
+try{
+
+   ...
+
+}catch(err){
+
+   console.error(err);
+
+   alert(err.message);
+
+}
 /*=========================================
  TOMBOL BUAT INVOICE
 =========================================*/
 
-document.getElementById("btnInvoice").onclick=()=>{
+document.getElementById("btnInvoice").onclick = async () => {
 
-if(!validasiForm()) return;
+    if (!validasiForm()) return;
 
-const order=simpanPesanan();
+    const order = await simpanPesanan();
 
-alert(
+    alert(`Invoice berhasil dibuat
 
-`Invoice berhasil dibuat\n\n${order.invoice}`
-
-);
+${order.invoice}`);
 
 };
 
@@ -1914,7 +1923,7 @@ ${order.jam}
 
 window.open(
 
-"https://wa.me/6281234567890?text="+
+"https://wa.me/623813138221?text="+
 
 encodeURIComponent(pesan),
 
@@ -1923,6 +1932,15 @@ encodeURIComponent(pesan),
 );
 
 };
+let wa = document
+.getElementById("wa")
+.value
+.replace(/\D/g,"");
+if(wa.startsWith("0")){
+
+   wa = "62" + wa.substring(1);
+
+}
 /*=========================================
  CETAK
 =========================================*/
@@ -1938,7 +1956,8 @@ window.print();
 =========================================*/
 
 document.querySelectorAll(
-
+btnWhatsapp.disabled = true;
+btnInvoice.disabled = true;
 "#btnInvoice,#btnWhatsapp"
 
 ).forEach(btn=>{
@@ -1947,14 +1966,19 @@ btn.addEventListener("click",()=>{
 
 const loading=document.getElementById("loadingOrder");
 
-loading.style.display="flex";
+loading.style.display = "flex";
 
-setTimeout(()=>{
+try{
 
-loading.style.display="none";
+   ...
+
+}finally{
+
+   loading.style.display = "none";
 
 },1500);
-
+btnWhatsapp.disabled = false;
+btnInvoice.disabled = false;
 });
 
 });</script>
