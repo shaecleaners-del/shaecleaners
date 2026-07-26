@@ -386,7 +386,7 @@ ${order.jam}
 
 window.open(
 
-"https://wa.me/message/MJ7SUIASE3DYN1?text="+
+"https://wa.me/message/MJ7SUIASE3DYN1="+
 
 encodeURIComponent(pesan),
 
