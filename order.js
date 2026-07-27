@@ -1,7 +1,7 @@
 /*=========================================
  Shae Cleaners Order System
 =========================================*/
-import { simpanOrder, uploadFoto, generateInvoice } from "./firebase.js";
+import { simpanOrder, uploadFoto, generateInvoice } from ".firebase.js";
 
 const priceList = {
 
