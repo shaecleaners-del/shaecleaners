@@ -1,0 +1,109 @@
+<!-- Form Pemesanan -->
+<div class="order-box">
+  <h3>Formulir Pemesanan</h3>
+  
+  <label for="nama">Nama Lengkap</label>
+  <input type="text" id="nama" placeholder="Masukkan nama lengkap" required>
+
+  <label for="produk">Pilih Produk</label>
+  <select id="produk">
+    <option value="Produk A - Rp100.000">Produk A - Rp100.000</option>
+    <option value="Produk B - Rp150.000">Produk B - Rp150.000</option>
+    <option value="Produk C - Rp200.000">Produk C - Rp200.000</option>
+  </select>
+
+  <label for="jumlah">Jumlah Order</label>
+  <input type="number" id="jumlah" value="1" min="1" required>
+
+  <label for="alamat">Alamat Pengiriman</label>
+  <textarea id="alamat" rows="3" placeholder="Jl. Nama Jalan No. XX, Kecamatan, Kota/Kab, Kode Pos" required></textarea>
+
+  <label for="catatan">Catatan (Opsional)</label>
+  <input type="text" id="catatan" placeholder="Warna, ukuran, dll.">
+
+  <button type="button" onclick="kirimOrder()">Kirim via WhatsApp</button>
+</div>
+
+<!-- Styling CSS -->
+<style>
+  .order-box {
+    max-width: 450px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  .order-box h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  .order-box label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #555;
+  }
+  .order-box input, .order-box select, .order-box textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  .order-box button {
+    width: 100%;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 12px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .order-box button:hover {
+    background-color: #1eb857;
+  }
+</style>
+
+<!-- JavaScript logika kirim WA -->
+<script>
+function kirimOrder() {
+  // Ganti nomor WhatsApp di bawah ini (gunakan format internasional tanpa +)
+  var nomorWA = "6281234567890"; 
+
+  // Ambil value dari form
+  var nama = document.getElementById("nama").value;
+  var produk = document.getElementById("produk").value;
+  var jumlah = document.getElementById("jumlah").value;
+  var alamat = document.getElementById("alamat").value;
+  var catatan = document.getElementById("catatan").value;
+
+  // Cek validasi sederhana
+  if (nama === "" || alamat === "") {
+    alert("Mohon lengkapi Nama dan Alamat pengiriman.");
+    return;
+  }
+
+  // Format Pesan
+  var pesan = "*HALO, SAYA MAU ORDER*" + "%0A%0A" +
+              "*Nama:* " + encodeURIComponent(nama) + "%0A" +
+              "*Produk:* " + encodeURIComponent(produk) + "%0A" +
+              "*Jumlah:* " + encodeURIComponent(jumlah) + "%0A" +
+              "*Alamat:* " + encodeURIComponent(alamat) + "%0A" +
+              "*Catatan:* " + (catatan ? encodeURIComponent(catatan) : "-");
+
+  // Redirect ke WhatsApp
+  var url = "https://api.whatsapp.com/send?phone=" + nomorWA + "&text=" + pesan;
+  window.open(url, '_blank');
+}
+</script>
